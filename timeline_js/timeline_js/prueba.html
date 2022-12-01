@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Timeline JavaScript</title>
+	 <link rel="stylesheet" href="styleTimeline.css">
+
+
+	
+</head>
+<body id="body">
+	<div class ="container">
+		<h1 id="gameTitle">TIMELINE GAME</h1>
+
+		<div id="message"> Bienvenido a Timeline.</div>
+		<div id="start"> 
+			<div id="playerName">
+			<p id="playerInput"> Jugador, introduzca su nombre: </p>
+			<input type="text" id="namePlayer" name="name" required
+       		minlength="2" maxlength="8" size="10">
+			</div>
+			<button id="btnstart" type="button" onclick="gameStart()" class="btn">Empezar Juego</button>
+		</div>	
+		
+		<header id="timelineHeader" style="display:none;">
+			<h4>Cartas del Timeline:</h3>
+		</header>
+		<div id="cards">
+			<span style="padding-right:3px; padding-top: 3px; display:inline-block;">
+			</span>
+		</div>
+		<div id="cardbtns"></div>
+		<div id="startbet" style="display: none;">
+			<button class="button-7" id="betButton" role="button" onclick="makeCardBet()">COLOCAR CARTA</button>
+		</div>
+		<header id="playerHeader" style="display: none;">
+			<h4>Cartas del Jugador: </h3>
+		</header>
+		<div id="playerCards">
+			<span style="padding-right:3px; padding-top: 3px; display:inline-block;">
+			</span>
+		</div>
+		<div id="playerbtns"></div>
+
+		
+
+
+
+	</div>
+	<script>
+		var myDollars = 100;
+		var cards = [];
+		var count = 0;
+		var playerCards = [];
+		var timelineCards = [];
+
+
+
+
+
+		var cardOutput = document.getElementById('cards');
+		var playerCardOutput = document.getElementById('playerCards');
+		var timelineBtnOutput = document.getElementById('cardbtns');
+		var playerBtnOutput = document.getElementById('playerbtns');
+
+		// cartas
+		var events = ["abejas_event.png","ajedrez_event.png","botellavidrio_event.png","cleopatra_event.png","coliseo_event.png","coloso_event.png","dado_event.png"];
+		var years = ["-1000000","570","-200","-51","80","-292","-3000"];
+
+
+
+		// 1 pilar la div message y almacenarlo en variable
+		var message = document.getElementById('message');
+
+		
+
+
+		// funcion al darle click al botón
+		function gameStart() {
+
+
+
+
+			document.getElementById("body").style.backgroundImage = "url(timeline_fondo.jpg)";
+
+			
+			// 2 cambiar el contenido dentro del div message
+			message.innerHTML = "Partida Empezada!";
+			// pillar la div que tiene el botón y hacerlo invisible
+			document.getElementById('start').style.display = 'none';
+			document.getElementById('startbet').style.display = 'block';
+
+			document.getElementById('timelineHeader').style.display = 'flex';
+			document.getElementById('playerHeader').style.display = 'flex';
+
+			
+			buildCards();
+			shuffleArray(cards);
+			
+			givePlayerCards(cards);
+			beginTimelineDeck(cards);
+
+			// cardOutput.innerHTML += showTimelineCardEvent();
+
+			// TODO todo lo que habia hecho en el bucle va a ir dentro 
+			// de lo que seria la funcion hilo
+			// va a mostrar las timeline arriba y las cartas jugador debajo
+
+			/*
+			for (var i = 0; playerCards.length != 0; i++) {
+				sortCards(playerCards);
+
+				if (i == 2) {
+
+					document.getElementById('message').style.display = 'none';
+
+				}
+
+
+				// pillar carta y colocar en timeline - parametros, psicion carta jugador - posicion en timeline
+				// TODO el jugador selecciona una carta (posicion) y donde colocarla (posicion timeline)
+			*/
+
+			
+			/*
+				// que no repita valores al imprimir HECHO
+				cardOutput.innerHTML = showCard();
+					
+			
+			}	
+
+			winMessage();
+			*/
+		
+			cardOutput.innerHTML += showTimelineCardYears();
+			timelineBtnOutput.innerHTML += showTimelineButtons();
+			playerCardOutput.innerHTML += showPlayerCards();
+			playerBtnOutput.innerHTML += showPlayerCardsButtons();
+
+
+
+
+			
+			
+				/*	TODO colocar esto en un boton de "Jugar" onClick()
+				var playerChoice = prompt("Elige carta para colocar en el Timeline");
+				var timelineChoice = prompt("Elige posición donde colocar la carta");
+
+				 takePlayerCard(playerChoice,timelineChoice);
+				*/
+
+			
+				// compareTimeline(timelineCards);	
+			
+			console.log(playerCards);
+			// console.log(cards);
+			console.log(timelineCards);
+
+		}
+
+		//TODO 
+		function makeCardBet() {
+
+			var playerChoice = prompt("Elige carta para colocar en el Timeline (de 0 a n posiciones)");
+			var timelineChoice = prompt("Elige posición donde colocar la carta (de 0 a n posiciones");
+
+			takePlayerCard(playerChoice,timelineChoice);
+
+			compareTimeline(timelineCards);
+
+		
+
+			// refrescar las cartas
+
+			showTimelineCardYears();
+			cardOutput.innerHTML = showTimelineCardYears();
+			playerCardOutput.innerHTML = showPlayerCards();
+
+			if (playerCards.length == 0) {
+
+					message.innerHTML = "GANASTE! FIN DE LA PARTIDA!";
+					document.getElementById("betButton").disabled = true;
+
+			}
+			
+
+
+
+		}
+
+
+
+		function hilo(a) {
+					
+				// calculate winner
+					var win = false;
+					var oldCard = cards[count];
+					count++;
+					cardOutput.innerHTML += showCard();
+					var newCard = cards[count].cardValue;
+					if (a == 'high' && oldCard < newCard) {
+							win = true;
+					}
+
+					else if(a == 'low' && oldCard > newCard) {
+						win = true;
+					}
+					if (win) {
+
+						message.innerHTML = "ACERTASTE :)!";
+					}
+
+					else {
+
+							message.innerHTML = "TE EQUIVOCASTE :/. Sacando nueva carta! :(";
+					}
+		}
+
+
+
+			function shuffleArray(array) {
+				for (var i = array.length - 1; i > 0; i--) {
+
+					// aleatorio, cuando sea posición 0 no multiplica por 0 (0+1)
+					var holder = Math.floor(Math.random() * (i+1));
+					
+					// auxiliar que guarda el valor de un objeto del array
+					var temp = array[i];
+					// poner al objeto[i] el valor de otro objeto del array
+					array[i] = array[holder];
+					// poner al otro objeto el valor del anterior, intercambiarlos
+					array[holder] = temp;
+
+					// se cambian de sitio el original array[i] por array[holder]
+
+				}
+				return array;
+
+			}
+
+			function showTimelineCard() {
+
+				/*var output = "";
+				for (var i = 0; i <= timelineCards.length - 1; i++) {
+					output += '<div>'+timelineCards[i].evento+' '+timelineCards[i].anio+'</div>';
+				}
+
+				return output;
+				*/
+
+			
+				var t = timelineCards[count];
+				return '<span class="itimeline">'+t.evento+' '+t.anio+'</span>';
+
+
+			}
+
+			function showTimelineCardYears() {
+					/*
+				return '<div>'+timelineCards[count].evento+' '+timelineCards[count].anio+'</div>';
+				*/
+
+				/*
+					// cartas
+		var events = ["abejas_event.png","ajedrez_event.png","botellavidrio_event.png","cleopatra_event.png","coliseo_event.png","coloso_event.png","dado_event.png"];
+				*/
+				var output = "";
+				// TODO bucle que vaya mostrando el numero de cartas en el Timeline
+				for (var i = 0; i <= timelineCards.length -1 ; i++) {
+					
+
+					var t = timelineCards[i].evento;
+					switch(t) {
+						case "abejas_event.png":
+							t = "abejas_year.png" ;
+							break;
+						case "ajedrez_event.png":
+							t = "ajedrez_year.png";
+							break;
+						case "botellavidrio_event.png":
+							t = "botellavidrio_year.png";
+							break;
+						case "cleopatra_event.png":
+							t = "cleopatra_year.png";
+							break;
+						case "coliseo_event.png":
+							t = "coliseo_year.png";
+							break;
+						case "coloso_event.png":
+							t = "coloso_year.png";
+							break;
+						case "dado_event.png":
+							t = "dado_year.png";
+							break;
+
+					}
+
+				
+				output += '<img src="'+t+'" alt="imagen" width="200" height="200">';
+
+				}
+
+
+
+				//return '<img src="'+t+'" alt="imagen" width="200" height="200">';
+				return output;
+
+
+			}
+
+
+			function showTimelineButtons() {
+
+				output = "";
+
+				for (var i = 0; i <= timelineCards.length ; i++) {
+					output += '<button type="button" class="btn">'+ i +'</button>';
+				}
+
+				return output;
+
+
+
+			}
+
+
+			function showPlayerCards() {
+				var output = "";
+
+
+				for (var i = 0; i <= playerCards.length -1 ; i++) {
+					output +=  '<img src="'+playerCards[i].evento+'" alt="imagen" width="200" height="200">';
+
+
+
+
+					//'<span class =itimeline>'+playerCards[i].evento+' '+playerCards[i].anio+'</span> ';
+					
+				}
+
+				return output;
+			}
+
+			function showPlayerCardsButtons() {
+
+				var output = "";
+				var number = 0;
+
+				for (var i = 0; i <= playerCards.length -1 ; i++) {
+					output +=  '<button type="button" class="btnTwo">'+playerCards[number].anio+'</button>';
+					
+					number++;
+				}
+
+				return output;
+
+
+
+			}
+
+
+			
+
+
+
+		function buildCards() {
+
+						cards = [];
+						events.forEach((event,index) => {
+							var evento = event.substr(0,event.length).toUpperCase();
+							const year = years[index];
+							var card = {
+									evento : event
+									,anio : year
+									,cardValue : parseInt(year)
+									, icon: evento
+								}
+							cards.push(card);
+
+
+						});
+
+							 console.log(cards);
+			
+			
+		}
+
+
+	
+
+
+		function sortCards(array) {
+
+			function compare( a, b ) {
+			  if ( a.cardValue < b.cardValue ){
+			    return -1;
+			  }
+			  if ( a.cardValue > b.cardValue ){
+			    return 1;
+			  }
+			  return 0;
+			}
+
+				array.sort(compare);
+				return array;
+		}
+
+		function compareTimeline(array) {
+
+			// suponiendo ya esta metida la carta de playerCards()
+
+				for (var i = 0; i < array.length; i++) {
+					var a = i
+					var b = i+1;
+					// si llega aqui ya ha ganado
+					if (a == array.length -1) {
+
+
+						message.innerHTML = "ACERTASTE. TE DESCARTAS DE ESA CARTA!";
+						break;
+					}
+
+			  		if ( timelineCards[a].cardValue > timelineCards[b].cardValue ){
+			  		// caso la carta esta mal colocada
+			  		// se ordena el array, se quita de playerCards, se coge una de cards
+				    	// TODO ya rula
+		  				 	sortCards(timelineCards);
+			  				givePlayerCard(cards);
+
+			  				message.innerHTML = "NO ACERTASTE. TIMELINE ORDENADO. NUEVA CARTA ASIGNADA A TU MANO";
+			  				
+			  				return true;
+
+
+				    	
+			  		}
+
+				}
+				// final for
+		}
+
+
+		
+		
+
+		
+
+
+
+		function givePlayerCards(array) {
+			 // no poner var playerCards
+			// playerCards = [];
+
+			for (var i = 0; i < 3 ;i++) {
+				
+				playerCards.push(array[i]);
+				array.splice(i,1);
+
+			}
+
+			
+			return playerCards;
+
+		}
+
+		// dar una sola carta al jugador del mazo si falla
+		function givePlayerCard(array) {
+			// comprobar no quedan cartas en el mazo
+			if (cards.length != 0) {
+
+				var cardTaken = array[0];
+				playerCards.push(cardTaken)
+				// quitar carta del mazo
+				array.splice(0,1);
+
+			}
+
+			else {
+				message.innerHTML = "NO QUEDAN CARTAS EN EL MAZO";
+				
+			}
+
+			// TODO si no quedan cartas en el mazo, poner mensaje de no quedan cartas
+
+
+		}
+
+		// funcion quitar carta del jugador y ponersela a timeline
+		function takePlayerCard(playerCardPosition, timelinePosition) {
+				// carta que vas a coger = playerCards[x]
+				// donde la vas a colocar = timelinePosition
+
+			// añadir carta a timeline de playerCards[] en una posicion
+			timelineCards.splice(timelinePosition,0,playerCards[playerCardPosition]);
+			// 0 es numero de elementos a eliminar (ninguno, solo añades)
+
+
+		
+
+			 // caso la carta esta bien colocada
+		    // se quita la carta de playerCards y se pone en timelineCards
+		    playerCards.splice(playerCardPosition,1);
+			
+
+		
+
+
+
+		}
+
+
+
+
+
+
+		function beginTimelineDeck(array) {
+			timelineCards = [];
+			timelineCards.push(array[0]);
+			array.splice(0,1);
+			
+		
+
+
+		}
+
+		function winMessage() {
+
+			document.getElementById('message').style.display = 'block';
+			message.innerHTML = "¡HA GANADO!";
+			alert("¡¡HA GANADO!!");
+		}
+
+
+
+		
+
+
+
+								
+
+			
+
+
+
+		
+
+
+	</script>
+
+
+
+</body>
+</html>
