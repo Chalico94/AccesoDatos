@@ -39,9 +39,10 @@ var_export($miFila2);
 
 		<h2> Nombre </h2>
 		<input type="text" name="nombre" id="nombre" placeholder="nombre...">
-		<h2> Color </h2>
+		<h2> Descripcion </h2>
 		<input type="text" name="descripcion" id="descripcion" placeholder="descripcion...">
-
+		<h2> ID </h2>
+		<input type="text" name="id" id="id" placeholder="introduce id...">
 		<button>Enviar</button>
 
 		<!-- onclick="getAllHortalizasFromTam($myconnection, $_GET['tamano'])" -->

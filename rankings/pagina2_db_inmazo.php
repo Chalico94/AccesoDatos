@@ -15,22 +15,29 @@
     var_export($_POST);
     $nombre = $_POST["nombre"];
     $descripcion = $_POST["descripcion"];
+    $id = $_POST["id"];
     $conDB = conectarDB();
 
 
-    $idInsertado = insertarMazo($conDB, $nombre, $descripcion);
+    /*$idInsertado = insertarMazo($conDB, $nombre, $descripcion);
     var_export($idInsertado);
-
     if ($idInsertado == 0) {
-        echo '<script>alert("NO SE HA PODIDO INSERTAR");
-        location.href="pagina1_db_inmazo.php"</script>';
+    echo '<script>alert("NO SE HA PODIDO INSERTAR");
+    location.href="pagina1_db_inmazo.php"</script>';
+    }*/
 
-    }
-    /*
-    $numBorradas = borrarMazoPorIdNombre($conDB,$);
-    echo '<script>alert("Las borradas son ' . $numBorradas . '"); </script>';
-    // sacar todas las hortalizas */
+
+    /* MODIFICAR MAZO DESCRIPCION Y NOMBRE POR ID */
+    $mazoModificado = modificarMazoNombreDescripcionPorId($conDB, $id, $nombre);
+    /* Borrar mazo con nombre x e id y*/
+    //$numBorradas = borrarMazoPorIdNombre($conDB, $id, $nombre);
+    // echo '<script>alert("Las borradas son ' . $numBorradas . '"); </script>';
+    
+    // sacar todas los mazos con nombre */
     $resultados = getAllMazosFromNombre($conDB, $nombre);
+
+
+
 
 
 

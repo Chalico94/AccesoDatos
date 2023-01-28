@@ -29,23 +29,21 @@
 
 
     // UPDATE
-    function modificarMazoFromNombre($conDb, $id, $nombre, $descripcion)
+    function modificarMazoNombrePorId($conDb, $id, $nombre)
     {
-
         $result = 0;
         try {
 
-            $sql = "UPDATE MAZOS SET NOMBRE=:nombre, DESCRIPCION=: descripcion WHERE ID=:id";
+            $sql = "UPDATE MAZOS SET NOMBRE=:nombre WHERE ID=:id";
             $stmt = $conDb->prepare($sql);
             $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
             $stmt->bindParam(':id', $id);
-            $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
             $stmt->execute();
             $result = $stmt->rowCount();
 
         } catch (PDOException $ex) {
 
-            echo ("Error en modificarMazoFromNombre" . $ex->getMessage());
+            echo ("Error en modificarMazo Nombre Descripcion por ID" . $ex->getMessage());
         }
 
         return $result;
