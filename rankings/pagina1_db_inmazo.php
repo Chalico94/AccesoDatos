@@ -42,7 +42,7 @@ var_export($miFila2);
 		<h2> Descripcion </h2>
 		<input type="text" name="descripcion" id="descripcion" placeholder="descripcion...">
 		<h2> ID </h2>
-		<input type="text" name="id" id="id" placeholder="introduce id...">
+		<input type="text" name="id" id="id" placeholder="introduce id..."> //Autoincremental?
 		<button>Enviar</button>
 
 		<!-- onclick="getAllHortalizasFromTam($myconnection, $_GET['tamano'])" -->
