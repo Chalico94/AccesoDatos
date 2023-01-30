@@ -29,15 +29,16 @@
 
 
     // UPDATE
-    function modificarMazoNombrePorId($conDb, $id, $nombre)
+    function modificarMazoNombreDescripcionPorId($conDb, $id, $nombre, $descripcion)
     {
         $result = 0;
         try {
 
-            $sql = "UPDATE MAZOS SET NOMBRE=:nombre WHERE ID=:id";
+            $sql = "UPDATE MAZOS SET NOMBRE=:nombre, DESCRIPCION=:descripcion WHERE ID=:id";
             $stmt = $conDb->prepare($sql);
-            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':descripcion', $descripcion);
             $stmt->execute();
             $result = $stmt->rowCount();
 
