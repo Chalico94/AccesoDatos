@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,30 +10,24 @@
 
 <body>
     <?php
-
     function conectarDB()
     {
 
         try {
-
-            $db = new PDO("mysql:host=localhost;dbname=rankings;charset=utf8mb4", "root", "");
+            $db = new PDO("mysql:host=localhost;dbname=db_rankings;charset=utf8mb4", "root", "");
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $db;
-
         } catch (PDOException $ex) {
-
             echo ("Error al conectar" . $ex->getMessage());
         }
 
     }
 
-
     // UPDATE
-    function modificarMazoNombreDescripcionPorId($conDb, $id, $nombre, $descripcion)
+    function modificarMazoNombrePorId($conDb, $id, $nombre, $descripcion)
     {
         $result = 0;
         try {
-
             $sql = "UPDATE MAZOS SET NOMBRE=:nombre, DESCRIPCION=:descripcion WHERE ID=:id";
             $stmt = $conDb->prepare($sql);
             $stmt->bindParam(':nombre', $nombre);
@@ -41,65 +35,45 @@
             $stmt->bindParam(':descripcion', $descripcion);
             $stmt->execute();
             $result = $stmt->rowCount();
-
         } catch (PDOException $ex) {
-
             echo ("Error en modificarMazo Nombre Descripcion por ID" . $ex->getMessage());
         }
-
         return $result;
 
     }
-
-
 
     // INSERT
     function insertarMazo($conDb, $nombre, $descripcion)
     {
 
         try {
-
             $sql = "INSERT INTO MAZOS(NOMBRE, DESCRIPCION) VALUES (:NOMBRE, :DESCRIPCION)";
             $stmt = $conDb->prepare($sql);
             $stmt->bindParam(':NOMBRE', $nombre);
             $stmt->bindParam(':DESCRIPCION', $descripcion);
             $stmt->execute();
-
         } catch (PDOException $ex) {
             echo ("Error en insertarMazo" . $ex->getMessage());
         }
         return $conDb->lastInsertId();
-
     }
-
 
     // DELETE mazo por id y nombre
     function borrarMazoPorIdNombre($conDb, $id, $nombre)
     {
-
         $result = 0;
-
         try {
-
             $sql = "DELETE FROM MAZOS WHERE ID=:id AND NOMBRE=:nombre";
             $stmt = $conDb->prepare($sql);
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':nombre', $nombre);
             $stmt->execute();
             $result = $stmt->rowCount();
-
         } catch (PDOException $ex) {
-
             echo ("Error en borrarHortaliza" . $ex->getMessage());
         }
-
         return $result;
-
-
     }
-
-
-
 
     // Todo hacer esta funcion y arreglar resultados en pagina2_db_in
     function getAllMazosFromNombre($conDb, $nombre)
@@ -107,7 +81,6 @@
 
         $vectorTotal = array();
         try {
-
             $arr = array();
             $sql = "SELECT * FROM MAZOS";
             if ($nombre != "") {
@@ -126,14 +99,7 @@
         }
         return $vectorTotal;
     }
-
-
     ?>
-
-
-
-
-
 </body>
 
 </html>
