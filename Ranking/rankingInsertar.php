@@ -10,7 +10,7 @@
     <title>Insertar</title>
 </head>
 <body>
-    <form action="pagina2_db_inmazo.php" method="POST">
+    <form action="rankingInsertar2.php" method="POST">
     <input type="text" name="nombre" placeholder="Escribe Nombre" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
     <input type="text" name="descripcion" placeholder="Escribe Descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
     <input type="submit" name="crear" value="Crear" class="btn btn-outline-dark">
