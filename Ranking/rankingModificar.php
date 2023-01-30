@@ -10,12 +10,28 @@
     <title>Modificar</title>
 </head>
 <body>
+    <?php
+            require_once("rankingutils.php");
+            $conDB = conectarDB();
+            $resultados =  getAllMazosFromNombre($conDB, "")
+        ?>
+    <div>
+        <table class="table table-dark table-striped">
+            <tr><th>Nombre</th><th>Descripcion</th></tr>
+        <?php
+            foreach ($resultados as $fila){
+            echo "<tr><td>".$fila["NOMBRE"]."</td><td>".$fila["DESCRIPCION"]."</td></tr>" ;
+            }
+        ?>
+        </table>
+    </div>
+    <br/>
     <form action="rankingModificar2.php" method="POST">
     <input type="text" name="id" placeholder="Filtrar por Id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
     <br/>
     <input type ="text" name="nombre" placeholder="Nombre a modificar..."  class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
     <input type ="text" name="descripcion" placeholder="Descripcion a modificar..."  class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-
+    <br/>
     <input type="submit" name="modificar" value="Modificar" class="btn btn-outline-dark">
     </form>
 </body>

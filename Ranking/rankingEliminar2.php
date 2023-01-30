@@ -7,22 +7,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/style.css">
-    <title>Modificar</title>
+    <title>Insertar</title>
 </head>
 <body>
     <?php
         require_once("rankingutils.php");
         var_export($_POST);
         $id= $_POST["id"];
-        $nombre= $_POST["nombre"];
-        $descripcion = $_POST["descripcion"];
+        $nombre = $_POST["nombre"];
         $conDB = conectarDB();
 
-        $modificado=modificarMazoNombrePorId($conDB, $id, $nombre, $descripcion);
-        var_export($modificado);
-        if($id == 0){
-            echo '<script>alert("NO SE HA PODIDO Modificar");
-            location.href="rankingModificar.php"</script>';  
+        $eliminado = borrarMazoPorIdNombre($conDB, $id, $nombre);
+        var_export($eliminado);
+        if($eliminado == 0){
+            echo '<script>alert("NO SE HA PODIDO ELIMINAR");
+            location.href="rankingEliminar.php"</script>';  
         }
         $resultados =  getAllMazosFromNombre($conDB, "")
    ?>

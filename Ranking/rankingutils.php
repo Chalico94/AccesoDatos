@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Funciones del Mazo</title>
 </head>
+
 <body>
     <?php
     function conectarDB()
@@ -22,14 +24,15 @@
     }
 
     // UPDATE
-    function modificarMazoNombrePorId($conDb, $id, $nombre)
+    function modificarMazoNombrePorId($conDb, $id, $nombre, $descripcion)
     {
         $result = 0;
         try {
-            $sql = "UPDATE MAZOS SET NOMBRE=:nombre WHERE ID=:id";
+            $sql = "UPDATE MAZOS SET NOMBRE=:nombre, DESCRIPCION=:descripcion WHERE ID=:id";
             $stmt = $conDb->prepare($sql);
-            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':descripcion', $descripcion);
             $stmt->execute();
             $result = $stmt->rowCount();
         } catch (PDOException $ex) {
@@ -98,4 +101,5 @@
     }
     ?>
 </body>
+
 </html>
