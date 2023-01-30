@@ -1,0 +1,17 @@
+﻿body{
+  margin-top: 100px;
+  margin-left: 100px;
+}
+
+.container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    gap: 40px;
+}
+
+.titulo {
+  text-align: center;
+}
