@@ -99,6 +99,91 @@
         }
         return $vectorTotal;
     }
+
+
+
+    // ------------ FUNCIONES DE CARTAS ----------------- //
+    function getAllCartasFromNombre($conDb, $nombre)
+    {
+
+        $vectorTotal = array();
+        try {
+            $arr = array();
+            $sql = "SELECT * FROM CARTAS";
+            if ($nombre != "") {
+                $arr[":nomAux"] = $nombre;
+                $sql = "SELECT * FROM CARTAS WHERE NOMBRE=:nomAux";
+            }
+            //if (count($arr) == 2)
+            // $sql = "SELECT * FROM MAZO WHERE C=:colorAux";
+            $stmt = $conDb->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+            $stmt->execute($arr);
+            while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $vectorTotal[] = $fila;
+            }
+        } catch (PDOException $ex) {
+            echo ("Error al conectar" . $ex->getMessage());
+        }
+        return $vectorTotal;
+    }
+
+
+
+    // UPDATE
+    function modificarCartaNombrePorId($conDb, $id, $nombre, $ano)
+    {
+        $result = 0;
+        try {
+            $sql = "UPDATE CARTAS SET NOMBRE=:nombre, ANO=:ano WHERE ID=:id";
+            $stmt = $conDb->prepare($sql);
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':ano', $ano);
+            $stmt->execute();
+            $result = $stmt->rowCount();
+        } catch (PDOException $ex) {
+            echo ("Error en modificarCarta Nombre Descripcion por ID" . $ex->getMessage());
+        }
+        return $result;
+
+    }
+
+    // INSERT
+    function insertarCarta($conDb, $nombre, $ano, $imagen)
+    {
+
+        try {
+            $sql = "INSERT INTO CARTAS(NOMBRE, ANO, IMAGEN) VALUES (:NOMBRE, :ANO, :IMAGEN)";
+            $stmt = $conDb->prepare($sql);
+            $stmt->bindParam(':NOMBRE', $nombre);
+            $stmt->bindParam(':ANO', $ano);
+            $stmt->bindParam(':IMAGEN', $imagen);
+            $stmt->execute();
+        } catch (PDOException $ex) {
+            echo ("Error en insertar Carta" . $ex->getMessage());
+        }
+        return $conDb->lastInsertId();
+    }
+
+    // DELETE mazo por id y nombre
+    function borrarCartaPorIdNombre($conDb, $id, $nombre)
+    {
+        $result = 0;
+        try {
+            $sql = "DELETE FROM CARTAS WHERE ID=:id AND NOMBRE=:nombre";
+            $stmt = $conDb->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->execute();
+            $result = $stmt->rowCount();
+        } catch (PDOException $ex) {
+            echo ("Error en borrarCarta" . $ex->getMessage());
+        }
+        return $result;
+    }
+
+
+
     ?>
 </body>
 

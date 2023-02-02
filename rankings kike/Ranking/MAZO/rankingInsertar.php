@@ -11,18 +11,19 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./css/style.css">
-  <title>Modificar</title>
+  <title>Insertar</title>
 </head>
 
 <body>
   <?php
-  require_once("rankingutils.php");
+  require_once("../rankingutils.php");
   $conDB = conectarDB();
   $resultados = getAllMazosFromNombre($conDB, "")
     ?>
   <div>
     <table class="table table-dark table-striped">
       <tr>
+        <th>Id</th>
         <th>Nombre</th>
         <th>Descripcion</th>
       </tr>
@@ -33,14 +34,16 @@
       ?>
     </table>
   </div>
-  <form action="rankingEliminar2.php" method="POST">
-    <input type="text" name="id" placeholder="Filtrar por Id" class="form-control" aria-label="Sizing example input"
-      aria-describedby="inputGroup-sizing-default" />
-    <input type="text" name="nombre" placeholder="Filtrar por nombre..." class="form-control"
-      aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-    <br />
-    <input type="submit" name="modificar" value="Eliminar" class="btn btn-danger" />
-  </form>
+  <div>
+    <form action="rankingInsertar2.php" method="POST">
+      <input type="text" name="nombre" placeholder="Escribe Nombre" class="form-control"
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+      <input type="text" name="descripcion" placeholder="Escribe Descripcion" class="form-control"
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+      <br />
+      <input type="submit" name="crear" value="Crear" class="btn btn-outline-dark">
+    </form>
+  </div>
 </body>
 
 </html>

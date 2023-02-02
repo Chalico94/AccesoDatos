@@ -10,19 +10,20 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <title>Modificar</title>
 </head>
 
 <body>
   <?php
-  require_once("rankingutils.php");
+  require_once("../rankingutils.php");
   $conDB = conectarDB();
   $resultados = getAllMazosFromNombre($conDB, "")
     ?>
   <div>
     <table class="table table-dark table-striped">
       <tr>
+        <th>Id</th>
         <th>Nombre</th>
         <th>Descripcion</th>
       </tr>
