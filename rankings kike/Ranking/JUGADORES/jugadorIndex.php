@@ -10,7 +10,8 @@
     <?php
         require_once("../rankingutils.php");
         $conDB = conectarDB();
-        $resultados = getAllMazosFromNombre($conDB, "")
+        $resultados = getAllMazosFromNombre($conDB, "");
+        $cont=0;
     ?>
     <h1>Timeline</h1>
     <div class="contanier"> 
@@ -18,7 +19,7 @@
         <option selected>Eligen un mazo</option>
         <?php
       foreach ($resultados as $fila) {
-        echo '<option value="1">'.$fila.'</option>';
+        echo '<option value=".'$cont++.'">'.$fila.'</option>';
       }
       ?>
             
