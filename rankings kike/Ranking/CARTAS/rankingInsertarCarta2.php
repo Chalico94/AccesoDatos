@@ -20,6 +20,7 @@
   var_export($_POST);
   $nombre = $_POST["nombre"];
   $ano = $_POST["ano"];
+  $mazo = $_POST["mazo"];
   $check = getimagesize($_FILES["image"]["tmp_name"]);
   if ($check !== false) {
     $image = $_FILES['image']['tmp_name'];
@@ -29,7 +30,7 @@
 
   $conDB = conectarDB();
 
-  $idInsertado = insertarCarta($conDB, $nombre, $ano, $imgContent);
+  $idInsertado = insertarCarta($conDB, $nombre, $ano, $imgContent, $mazo);
   var_export($idInsertado);
   if ($idInsertado == 0) {
     echo '<script>alert("NO SE HA PODIDO INSERTAR LA CARTA");

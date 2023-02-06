@@ -43,6 +43,9 @@
       <input type="file" name="image" placeholder="Suba imagen" class="form-control" aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default" />
       <br />
+      <input type="number" name="mazo" placeholder="Ponga id de mazo" class="form-control"
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+      <br />
       <input type="submit" name="crear" value="Crear" class="btn btn-outline-dark">
     </form>
   </div>

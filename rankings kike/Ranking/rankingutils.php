@@ -75,7 +75,7 @@
         return $result;
     }
 
-    // Todo hacer esta funcion y arreglar resultados en pagina2_db_in
+
     function getAllMazosFromNombre($conDb, $nombre)
     {
 
@@ -149,15 +149,16 @@
     }
 
     // INSERT
-    function insertarCarta($conDb, $nombre, $ano, $imagen)
+    function insertarCarta($conDb, $nombre, $ano, $imagen, $mazo)
     {
 
         try {
-            $sql = "INSERT INTO CARTAS(NOMBRE, ANO, IMAGEN) VALUES (:NOMBRE, :ANO, :IMAGEN)";
+            $sql = "INSERT INTO CARTAS(NOMBRE, ANO, IMAGEN, ID_MAZO) VALUES (:NOMBRE, :ANO, :IMAGEN, :ID_MAZO)";
             $stmt = $conDb->prepare($sql);
             $stmt->bindParam(':NOMBRE', $nombre);
             $stmt->bindParam(':ANO', $ano);
             $stmt->bindParam(':IMAGEN', $imagen);
+            $stmt->bindParam(':ID_MAZO', $mazo);
             $stmt->execute();
         } catch (PDOException $ex) {
             echo ("Error en insertar Carta" . $ex->getMessage());
@@ -181,6 +182,31 @@
         }
         return $result;
     }
+
+
+    /* FUNCIONES DE JUGADORES */
+    // Insertar Jugador ID Nombre Puntos
+    
+    function insertarJugador($conDb, $nombre, $ano, $imagen)
+    {
+
+        try {
+            $sql = "INSERT INTO CARTAS(NOMBRE, ANO, IMAGEN) VALUES (:NOMBRE, :ANO, :IMAGEN)";
+            $stmt = $conDb->prepare($sql);
+            $stmt->bindParam(':NOMBRE', $nombre);
+            $stmt->bindParam(':ANO', $ano);
+            $stmt->bindParam(':IMAGEN', $imagen);
+            $stmt->execute();
+        } catch (PDOException $ex) {
+            echo ("Error en insertar Carta" . $ex->getMessage());
+        }
+        return $conDb->lastInsertId();
+    }
+
+
+
+    // Mostrar ID Nombre y Puntos
+    
 
 
 
