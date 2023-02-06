@@ -187,26 +187,46 @@
     /* FUNCIONES DE JUGADORES */
     // Insertar Jugador ID Nombre Puntos
     
-    function insertarJugador($conDb, $nombre, $ano, $imagen)
+    function insertarJugador($conDb, $nombre, $puntos)
     {
 
         try {
-            $sql = "INSERT INTO CARTAS(NOMBRE, ANO, IMAGEN) VALUES (:NOMBRE, :ANO, :IMAGEN)";
+            $sql = "INSERT INTO CARTAS(NOMBRE, PUNTOS) VALUES (:NOMBRE, :PUNTOS)";
             $stmt = $conDb->prepare($sql);
             $stmt->bindParam(':NOMBRE', $nombre);
-            $stmt->bindParam(':ANO', $ano);
-            $stmt->bindParam(':IMAGEN', $imagen);
+            $stmt->bindParam(':PUNTOS', $puntos);
             $stmt->execute();
         } catch (PDOException $ex) {
             echo ("Error en insertar Carta" . $ex->getMessage());
         }
         return $conDb->lastInsertId();
     }
-
-
-
     // Mostrar ID Nombre y Puntos
-    
+    function getAllJugadoresFromNombre($conDb, $nombre)
+    {
+
+        $vectorTotal = array();
+        try {
+            $arr = array();
+            $sql = "SELECT * FROM JUGADORES";
+            if ($nombre != "") {
+                $arr[":nomAux"] = $nombre;
+                $sql = "SELECT * FROM JUGADORES WHERE NOMBRE=:nomAux";
+            }
+            //if (count($arr) == 2)
+            // $sql = "SELECT * FROM MAZO WHERE C=:colorAux";
+            $stmt = $conDb->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+            $stmt->execute($arr);
+            while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $vectorTotal[] = $fila;
+            }
+        } catch (PDOException $ex) {
+            echo ("Error al conectar" . $ex->getMessage());
+        }
+        return $vectorTotal;
+    }
+
+
 
 
 
