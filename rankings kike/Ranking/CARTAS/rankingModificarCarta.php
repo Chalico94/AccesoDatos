@@ -46,6 +46,10 @@
         <br />
         <input type="submit" name="modificar" value="Modificar" class="btn btn-outline-dark">
     </form>
+    </br>
+    <div class="boton_volver">
+        <button type="button" class="btn btn-success" onclick="location.href='../rankingIndex.html'">Volver</button>
+    </div>
 </body>
 
 </html>

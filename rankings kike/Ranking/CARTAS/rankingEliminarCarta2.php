@@ -26,7 +26,7 @@
   var_export($eliminado);
   if ($eliminado == 0) {
     echo '<script>alert("NO SE HA PODIDO ELIMINAR LA CARTA");
-            location.href="rankingEliminar.php"</script>';
+            location.href="rankingEliminarCarta.php"</script>';
   }
   $resultados = getAllCartasFromNombre($conDB, "")
     ?>
@@ -42,6 +42,9 @@
     }
     ?>
   </table>
+  <div class="boton_volver">
+    <button type="button" class="btn btn-success" onclick="location.href='../rankingIndex.html'">Volver</button>
+  </div>
 </body>
 
 </html>

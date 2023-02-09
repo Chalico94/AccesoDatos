@@ -42,6 +42,10 @@
     <br />
     <input type="submit" name="modificar" value="Eliminar" class="btn btn-danger" />
   </form>
+  </br>
+  <div class="boton_volver">
+    <button type="button" class="btn btn-success" onclick="location.href='../rankingIndex.html'">Volver</button>
+  </div>
 </body>
 
 </html>

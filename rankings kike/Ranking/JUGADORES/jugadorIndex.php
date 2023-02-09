@@ -2,19 +2,15 @@
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <title>Timeline</title>
-=======
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
   <title>Timeline</title>
->>>>>>> 0a5b0e9338a7b595cb939c1db81456eab1fec6c8
 </head>
 
 <body>
@@ -30,18 +26,6 @@
       <option selected>Eligen un mazo</option>
       <?php
       foreach ($resultados as $fila) {
-<<<<<<< HEAD
-        echo '<option value="'.$cont++.'">'.$fila['NOMBRE'].'</option>';
-      }
-      ?>
-        </select>
-    </div class="row">
-    <form action="jugadorPuntos.php" method="POST">
-    <br/>
-    <input type="submit" name="Jugar" value="jugar" class="btn btn-primary btn-lg" />
-  </form>
-    </div>
-=======
         echo '<option value="' . $cont++ . '">' . $fila['NOMBRE'] . '</option>';
       }
       ?>
@@ -52,7 +36,10 @@
     <input type="submit" name="Jugar" value="jugar" class="btn btn-primary btn-lg" />
   </form>
   </div>
->>>>>>> 0a5b0e9338a7b595cb939c1db81456eab1fec6c8
+  </br>
+  <div class="boton_volver">
+    <button type="button" class="btn btn-success" onclick="location.href='../rankingIndex.html'">Volver</button>
+  </div>
 </body>
 
 </html>
